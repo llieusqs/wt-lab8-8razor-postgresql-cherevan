@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace wt_lab5_5razor_cherevan.Models;
+namespace wt_lab8_8razor_postgresql_cherevan.Models;
 
 public class TaskItem
 {
@@ -20,4 +20,7 @@ public class TaskItem
     public decimal EstimateHours { get; set; }
 
     public string Status { get; set; } = "To Do";
+
+    // ДОБАВЛЯЕМ  ПОЛЕ
+    public string Description { get; set; } = string.Empty;
 }

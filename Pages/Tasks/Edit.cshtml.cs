@@ -1,32 +1,42 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_cherevan.Data;
-using wt_lab5_5razor_cherevan.Models;
+using Microsoft.EntityFrameworkCore;
+using wt_lab8_8razor_postgresql_cherevan.Data;
+using wt_lab8_8razor_postgresql_cherevan.Models;
 
-namespace wt_lab5_5razor_cherevan.Pages.Tasks;
+namespace wt_lab8_8razor_postgresql_cherevan.Pages.Tasks;
 
 public class EditModel : PageModel
 {
-    [BindProperty]
-    public TaskItem Task { get; set; } = new();
+    private readonly AppDbContext _context;
 
-    public IActionResult OnGet(int id)
+    public EditModel(AppDbContext context)
     {
-        var existing = TaskStore.Tasks.FirstOrDefault(x => x.Id == id);
-        if (existing == null) return NotFound();
-        
-        Task = existing;
+        _context = context;
+    }
+
+    [BindProperty]
+    public TaskItem Task { get; set; } = default!;
+
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+        if (task == null) return NotFound();
+
+        Task = task;
         return Page();
     }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
         if (!ModelState.IsValid) return Page();
 
-        var index = TaskStore.Tasks.FindIndex(x => x.Id == Task.Id);
-        if (index == -1) return NotFound();
+        // Обновляем запись в базе данных
+        _context.Attach(Task).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
 
-        TaskStore.Tasks[index] = Task; // Обновляем задачу в списке
         return RedirectToPage("./Index");
     }
 }

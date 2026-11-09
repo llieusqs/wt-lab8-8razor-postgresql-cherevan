@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Diana\\wt-lab5-5razor-cherevan\\wt-lab5-5razor-cherevan.csproj": {}
+    "D:\\коды\\wt-lab8-8razor-postgresql-cherevan\\wt-lab5-5razor-cherevan.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Diana\\wt-lab5-5razor-cherevan\\wt-lab5-5razor-cherevan.csproj": {
+    "D:\\коды\\wt-lab8-8razor-postgresql-cherevan\\wt-lab5-5razor-cherevan.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Diana\\wt-lab5-5razor-cherevan\\wt-lab5-5razor-cherevan.csproj",
+        "projectUniqueName": "D:\\коды\\wt-lab8-8razor-postgresql-cherevan\\wt-lab5-5razor-cherevan.csproj",
         "projectName": "wt-lab5-5razor-cherevan",
-        "projectPath": "C:\\Users\\Diana\\wt-lab5-5razor-cherevan\\wt-lab5-5razor-cherevan.csproj",
+        "projectPath": "D:\\коды\\wt-lab8-8razor-postgresql-cherevan\\wt-lab5-5razor-cherevan.csproj",
         "packagesPath": "C:\\Users\\Diana\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Diana\\wt-lab5-5razor-cherevan\\obj\\",
+        "outputPath": "D:\\коды\\wt-lab8-8razor-postgresql-cherevan\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -44,11 +44,23 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -60,24 +72,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[8.0.25, 8.0.25]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[8.0.25, 8.0.25]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -86,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

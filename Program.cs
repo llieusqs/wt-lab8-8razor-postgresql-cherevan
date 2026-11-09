@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using wt_lab8_8razor_postgresql_cherevan.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// --- НАСТРОЙКА ПОДКЛЮЧЕНИЯ К POSTGRESQL ---
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+// ------------------------------------------
+
+// Настройка порта для Docker/Render
 var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
 
@@ -11,7 +21,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -22,6 +31,6 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapRazorPages(); // Вот здесь мы убрали .WithStaticAssets()
+app.MapRazorPages();
 
 app.Run();

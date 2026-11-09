@@ -1,5 +1,5 @@
 @page
-@model wt_lab5_5razor_cherevan.Pages.Tasks.CreateModel
+@model wt_lab8_8razor_postgresql_cherevan.Pages.Tasks.CreateModel
 @{
     ViewData["Title"] = "Новая задача";
 }
@@ -28,6 +28,13 @@
                             <label asp-for="Task.Assignee" class="form-label">Исполнитель</label>
                             <input asp-for="Task.Assignee" class="form-control" />
                             <span asp-validation-for="Task.Assignee" class="text-danger"></span>
+                        </div>
+
+                        <!-- ДОБАВЛЕННОЕ ПОЛЕ ОПИСАНИЯ -->
+                        <div class="mb-3">
+                            <label asp-for="Task.Description" class="form-label">Описание</label>
+                            <textarea asp-for="Task.Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Task.Description" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">

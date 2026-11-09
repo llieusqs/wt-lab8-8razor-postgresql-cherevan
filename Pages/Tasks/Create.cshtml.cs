@@ -1,26 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_cherevan.Data;
-using wt_lab5_5razor_cherevan.Models;
+using wt_lab8_8razor_postgresql_cherevan.Data;
+using wt_lab8_8razor_postgresql_cherevan.Models;
 
-namespace wt_lab5_5razor_cherevan.Pages.Tasks;
+namespace wt_lab8_8razor_postgresql_cherevan.Pages.Tasks;
 
 public class CreateModel : PageModel
 {
+    private readonly AppDbContext _context;
+
+    public CreateModel(AppDbContext context)
+    {
+        _context = context;
+    }
+
     [BindProperty]
     public TaskItem Task { get; set; } = new();
 
     public void OnGet() { }
 
-    public IActionResult OnPost()
+    public async Task<IActionResult> OnPostAsync()
     {
-        if (!ModelState.IsValid) return Page();
+        if (!ModelState.IsValid) 
+            return Page();
 
-        Task.Id = TaskStore.Tasks.Any() 
-            ? TaskStore.Tasks.Max(x => x.Id) + 1 
-            : 1;
+        // База данных сама присвоит уникальный Id
+        _context.Tasks.Add(Task);
+        await _context.SaveChangesAsync();
 
-        TaskStore.Tasks.Add(Task);
         return RedirectToPage("./Index");
     }
 }

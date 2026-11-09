@@ -1,27 +1,30 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab5_5razor_cherevan.Data;
-using wt_lab5_5razor_cherevan.Models;
+using Microsoft.EntityFrameworkCore;
+using wt_lab8_8razor_postgresql_cherevan.Data;
+using wt_lab8_8razor_postgresql_cherevan.Models;
 
-namespace wt_lab5_5razor_cherevan.Pages.Tasks;
+namespace wt_lab8_8razor_postgresql_cherevan.Pages.Tasks;
 
 public class DetailsModel : PageModel
 {
-    // Свойство для хранения найденной задачи
-    public TaskItem? Task { get; set; }
+    private readonly AppDbContext _context;
 
-    public IActionResult OnGet(int id)
+    public DetailsModel(AppDbContext context)
     {
-        // Ищем задачу по ID в нашем хранилище
-        Task = TaskStore.Tasks.FirstOrDefault(x => x.Id == id);
+        _context = context;
+    }
 
-        // Если задача с таким ID не найдена, возвращаем ошибку 404
-        if (Task == null)
-        {
-            return NotFound();
-        }
+    public TaskItem Task { get; set; } = default!;
 
-        // Если нашли - показываем страницу
+    public async Task<IActionResult> OnGetAsync(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var task = await _context.Tasks.FirstOrDefaultAsync(m => m.Id == id);
+        if (task == null) return NotFound();
+
+        Task = task;
         return Page();
     }
 }
